@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>黄钰的博客</title>
-  
+  <icon>http://example.com/icon.png</icon>
   <subtitle>天空船</subtitle>
   <link href="http://example.com/atom.xml" rel="self"/>
   
