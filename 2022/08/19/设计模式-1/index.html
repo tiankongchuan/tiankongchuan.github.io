@@ -1,4 +1,26 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.7.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.7.0" type="image/png" sizes="32x32"><meta name="description" content="从原理到具体例子详细说明设计模式">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha256-xejo6yLi6vGtAjcMIsY8BHdKsLg7QynVlFMzdQgUuy8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.12.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="从原理到具体例子详细说明设计模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计模式(1)">
 <meta property="og:url" content="http://example.com/2022/08/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-1/index.html">
@@ -9,37 +31,190 @@
 <meta property="article:modified_time" content="2022-08-19T15:44:24.027Z">
 <meta property="article:author" content="John Doehexo">
 <meta property="article:tag" content="设计模式">
-<meta name="twitter:card" content="summary"><title>设计模式(1) | 黄钰的博客</title><link ref="canonical" href="http://example.com/2022/08/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-1/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.7.0"><script>var Stun = window.Stun || {};
-var CONFIG = {
-  root: '/',
-  algolia: undefined,
-  assistSearch: undefined,
-  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
-  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
-  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
-  postWidget: {"endText":true},
-  nightMode: {"enable":true},
-  back2top: {"enable":true},
-  codeblock: {"style":"default","highlight":"light","wordWrap":false},
-  reward: false,
-  fancybox: false,
-  zoomImage: {"gapAside":"20px"},
-  galleryWaterfall: undefined,
-  lazyload: false,
-  pjax: undefined,
-  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
-  shortcuts: undefined,
-  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
-  sourcePath: {"js":"js","css":"css","images":"images"},
-};
+<meta name="twitter:card" content="summary">
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.2"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">黄钰的博客</div><div class="header-banner-info__subtitle">天空船</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">设计模式(1)</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2022-08-19</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-08-19</span></span></div></header><div class="post-body"><p>从原理到具体例子详细说明设计模式</p>
+
+<link rel="canonical" href="http://example.com/2022/08/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/08/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-1/","path":"2022/08/19/设计模式-1/","title":"设计模式(1)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>设计模式(1) | 黄钰的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="黄钰的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">黄钰的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">天空船</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99"><span class="nav-number">1.</span> <span class="nav-text">面向对象设计原则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%881%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">设计原则（1）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%882%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">设计原则（2）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%883%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">设计原则（3）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%884%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">设计原则（4）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%885%EF%BC%89"><span class="nav-number">1.5.</span> <span class="nav-text">设计原则（5）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%886%EF%BC%89"><span class="nav-number">1.6.</span> <span class="nav-text">设计原则（6）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%887%EF%BC%89"><span class="nav-number">1.7.</span> <span class="nav-text">设计原则（7）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%888%EF%BC%89"><span class="nav-number">1.8.</span> <span class="nav-text">设计原则（8）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">模板方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F-strategty"><span class="nav-number">3.</span> <span class="nav-text">策略模式(strategty )</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">观察者模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">装饰模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%89%B9%E5%BE%81"><span class="nav-number">5.1.</span> <span class="nav-text">1.特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%90%86%E8%A7%A3%E5%92%8C%E8%AF%B4%E6%98%8E"><span class="nav-number">5.2.</span> <span class="nav-text">2. 理解和说明</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A1%A5%E6%A8%A1%E5%BC%8F"><span class="nav-number">6.</span> <span class="nav-text">桥模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95"><span class="nav-number">7.</span> <span class="nav-text">工厂方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82"><span class="nav-number">8.</span> <span class="nav-text">抽象工厂</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">9.</span> <span class="nav-text">原型模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">10.</span> <span class="nav-text">单例模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%9C%BA"><span class="nav-number">10.1.</span> <span class="nav-text">动机</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doehexo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doehexo">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="黄钰的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="设计模式(1) | 黄钰的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          设计模式(1)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-08-19 22:11:50 / Modified: 23:44:24" itemprop="dateCreated datePublished" datetime="2022-08-19T22:11:50+08:00">2022-08-19</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>从原理到具体例子详细说明设计模式</p>
 <span id="more"></span>
 
-
-        <h1 id="面向对象设计原则"   >
-          <a href="#面向对象设计原则" class="heading-link"><i class="fas fa-link"></i></a><a href="#面向对象设计原则" class="headerlink" title="面向对象设计原则"></a>面向对象设计原则</h1>
-      <ol>
+<h1 id="面向对象设计原则"><a href="#面向对象设计原则" class="headerlink" title="面向对象设计原则"></a>面向对象设计原则</h1><ol>
 <li>重新认识面向对象</li>
 </ol>
 <ul>
@@ -55,64 +230,34 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.2"></he
 <li>从概念层面而言，对象是某种拥有责任的抽象。<blockquote>
 <p>也许某些设计模式已经不再流行或者已经你已经忘了，但是只要能够记得设计原则，就能够重新对他们进行评估。</p>
 </blockquote>
-
-        <h2 id="设计原则（1）"   >
-          <a href="#设计原则（1）" class="heading-link"><i class="fas fa-link"></i></a><a href="#设计原则（1）" class="headerlink" title="设计原则（1）"></a>设计原则（1）</h2>
-      依赖倒置原则（DIP）</li>
+<h2 id="设计原则（1）"><a href="#设计原则（1）" class="headerlink" title="设计原则（1）"></a>设计原则（1）</h2>依赖倒置原则（DIP）</li>
 <li>高层模块（稳定）不应该依赖于低层模块（变化），二者都应该依赖于抽象（稳定）</li>
-<li>抽象（稳定）不应该依赖于实现细节，实现细节应该依赖于抽象（稳定）
-        <h2 id="设计原则（2）"   >
-          <a href="#设计原则（2）" class="heading-link"><i class="fas fa-link"></i></a><a href="#设计原则（2）" class="headerlink" title="设计原则（2）"></a>设计原则（2）</h2>
-      开放封闭原则（OCP)</li>
+<li>抽象（稳定）不应该依赖于实现细节，实现细节应该依赖于抽象（稳定）<h2 id="设计原则（2）"><a href="#设计原则（2）" class="headerlink" title="设计原则（2）"></a>设计原则（2）</h2>开放封闭原则（OCP)</li>
 <li>对扩展开放，对更改封闭</li>
-<li>类模块应该是可扩展的，但是不可修改。
-        <h2 id="设计原则（3）"   >
-          <a href="#设计原则（3）" class="heading-link"><i class="fas fa-link"></i></a><a href="#设计原则（3）" class="headerlink" title="设计原则（3）"></a>设计原则（3）</h2>
-      单一指责原则（SRP)</li>
+<li>类模块应该是可扩展的，但是不可修改。<h2 id="设计原则（3）"><a href="#设计原则（3）" class="headerlink" title="设计原则（3）"></a>设计原则（3）</h2>单一指责原则（SRP)</li>
 <li>一个类的应该仅有一个引起它变化的原因</li>
-<li>变化的方向隐含着类的责任
-        <h2 id="设计原则（4）"   >
-          <a href="#设计原则（4）" class="heading-link"><i class="fas fa-link"></i></a><a href="#设计原则（4）" class="headerlink" title="设计原则（4）"></a>设计原则（4）</h2>
-      Liskov替换（LSP）</li>
+<li>变化的方向隐含着类的责任<h2 id="设计原则（4）"><a href="#设计原则（4）" class="headerlink" title="设计原则（4）"></a>设计原则（4）</h2>Liskov替换（LSP）</li>
 <li>子类必须能够替换它们的基类（IS-A)</li>
-<li>继承表达类型抽象
-        <h2 id="设计原则（5）"   >
-          <a href="#设计原则（5）" class="heading-link"><i class="fas fa-link"></i></a><a href="#设计原则（5）" class="headerlink" title="设计原则（5）"></a>设计原则（5）</h2>
-      接口隔离原则（ISP)</li>
+<li>继承表达类型抽象<h2 id="设计原则（5）"><a href="#设计原则（5）" class="headerlink" title="设计原则（5）"></a>设计原则（5）</h2>接口隔离原则（ISP)</li>
 <li>不应该强迫客户程序依赖他们不用的方法</li>
-<li>接口应该小而完备    
-        <h2 id="设计原则（6）"   >
-          <a href="#设计原则（6）" class="heading-link"><i class="fas fa-link"></i></a><a href="#设计原则（6）" class="headerlink" title="设计原则（6）"></a>设计原则（6）</h2>
-      优先使用对象组合，而不是类继承</li>
+<li>接口应该小而完备    <h2 id="设计原则（6）"><a href="#设计原则（6）" class="headerlink" title="设计原则（6）"></a>设计原则（6）</h2>优先使用对象组合，而不是类继承</li>
 <li>类继承通常是“白箱复用”，而对象组合通常为“黑箱复用”</li>
 <li>继承在某种程度上破坏了封装性，父类对象耦合度高</li>
-<li>而对象组合则只要去被组合的对象具有良好定义的接口而耦合度低。
-        <h2 id="设计原则（7）"   >
-          <a href="#设计原则（7）" class="heading-link"><i class="fas fa-link"></i></a><a href="#设计原则（7）" class="headerlink" title="设计原则（7）"></a>设计原则（7）</h2>
-      封装变化点</li>
+<li>而对象组合则只要去被组合的对象具有良好定义的接口而耦合度低。<h2 id="设计原则（7）"><a href="#设计原则（7）" class="headerlink" title="设计原则（7）"></a>设计原则（7）</h2>封装变化点</li>
 <li>使用封装来创建对象之间的分界层，让设计者可以在分界的臆测进行修改，而不会对另一侧产生不良的影响，从而实现层次之间的松耦合</li>
 </ul>
 <p> 一般来说，封装的是代码和数据，但是站在更高角度，封装的是变化点。</p>
-
-        <h2 id="设计原则（8）"   >
-          <a href="#设计原则（8）" class="heading-link"><i class="fas fa-link"></i></a><a href="#设计原则（8）" class="headerlink" title="设计原则（8）"></a>设计原则（8）</h2>
-      <p> 针对接口编程，而不是针对实现编程</p>
+<h2 id="设计原则（8）"><a href="#设计原则（8）" class="headerlink" title="设计原则（8）"></a>设计原则（8）</h2><p> 针对接口编程，而不是针对实现编程</p>
 <ul>
 <li>不将变量类型声明为某个特定的具体类，而是声明为某个接口</li>
 <li>客户程序无需获知对象的具体类型， 只需要知道对象所以具有的接口</li>
 <li>减少系统中各部分的依赖关系，从而实现”高内聚，松耦合”的类型设计方案</li>
 </ul>
-
-        <h1 id="模板方法"   >
-          <a href="#模板方法" class="heading-link"><i class="fas fa-link"></i></a><a href="#模板方法" class="headerlink" title="模板方法"></a>模板方法</h1>
-      <p> 定义一个操作中的算法的骨架(稳定)，而将一些步骤延迟(变化)到子类中。Template Method使得子类可以不改变(复用)一个算法的结构即可重定义(override重写)该算法的某些特定步骤。</p>
+<h1 id="模板方法"><a href="#模板方法" class="headerlink" title="模板方法"></a>模板方法</h1><p> 定义一个操作中的算法的骨架(稳定)，而将一些步骤延迟(变化)到子类中。Template Method使得子类可以不改变(复用)一个算法的结构即可重定义(override重写)该算法的某些特定步骤。</p>
 <blockquote>
 <p>举例来说，一般而言写程序都需要调用别人的库，假设一共有五个步骤，step1到step5分别对于五个函数，其中有两个步骤（假设是step2和step4）需要具体实现，由application开发的人或者说调用的该lib库的人去实现，而其于三个步骤由lib开发的人完成。这样来看，调用的人需要完成的是step2和step4，以及一个程序主流程 （即什么时候调用哪个函数的逻辑设计）。但是如果说这个框架是稳定的，那么对于lib开发人员而言，可以把step2和step4做成接口，同时自己提供这个框架，然后再整体封装出去，这样调用的人直接将自己的step2和step4具体实现传入就好。</p>
 </blockquote>
-
-        <h1 id="策略模式-strategty"   >
-          <a href="#策略模式-strategty" class="heading-link"><i class="fas fa-link"></i></a><a href="#策略模式-strategty" class="headerlink" title="策略模式(strategty )"></a>策略模式(strategty )</h1>
-      <p>定义一系列算法，把它们一个个封装起来，并且使它们可互相替换（变化）。该模式使得算法可独立于使用它的客户程序（稳定）而变化（扩展，子类化）。</p>
+<h1 id="策略模式-strategty"><a href="#策略模式-strategty" class="headerlink" title="策略模式(strategty )"></a>策略模式(strategty )</h1><p>定义一系列算法，把它们一个个封装起来，并且使它们可互相替换（变化）。该模式使得算法可独立于使用它的客户程序（稳定）而变化（扩展，子类化）。</p>
 <blockquote>
 <p>比如一个程序，要处理三个国家的税务问题，此时需求发生变化，还要考虑额外的一个国家。这个时候，原来程序中可能是使用ifelse语句判断你输入的是哪个国家，进而进行判断要怎么实现。在这里就可以使。用策略模式，把这些处理税务的过程全部设计成子类。方便日后的添加，保证了主流程的稳定。</p>
 </blockquote>
@@ -123,74 +268,93 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.2"></he
 </blockquote>
 </li>
 </ul>
-
-        <h1 id="观察者模式"   >
-          <a href="#观察者模式" class="heading-link"><i class="fas fa-link"></i></a><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h1>
-      <p>  定义对象的一种一对多（变化）的依赖关系，以便当一个对象的状态发生改变的时候，所有依赖它的对象都得到通知并自动更新。</p>
+<h1 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h1><p>  定义对象的一种一对多（变化）的依赖关系，以便当一个对象的状态发生改变的时候，所有依赖它的对象都得到通知并自动更新。</p>
 <blockquote>
-<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://c.biancheng.net/view/1390.html" >观察者模式详解</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><a target="_blank" rel="noopener" href="http://c.biancheng.net/view/1390.html">观察者模式详解</a></p>
 </blockquote>
 <p> 这里简述一个例子：<br>中国的汇率波动会影响进口公司和出口公司，显然，两个公司都需要对汇率的值进行监视。首先提取出基类，是汇率和公司，然后实例化出中国汇率，进口公司和出口公司。在汇率基类中，应有add和del两个函数，分别用来增加和删除观察者，那显然你应该提供一个数据结构来存储这些观察者们（list或者vector），在本例中，显然这两个函数的传入参数都应该是公司基类，以方便后续传入具体的对象。同时在汇率基类中还应有对应的操作，设计为change函数，该函数应该为一个虚函数，具体是怎么实现的，应该留到对象中实现，比如在实例对象中国汇率里面，就应该遍历每个公司（存储在数据结构当中的），去调用他们自己对变化的汇率会产生什么影响的函数，这样便完成了。</p>
-
-        <h1 id="装饰模式"   >
-          <a href="#装饰模式" class="heading-link"><i class="fas fa-link"></i></a><a href="#装饰模式" class="headerlink" title="装饰模式"></a>装饰模式</h1>
-      <p>动态（组合）地给一个对象增加一些额外的指责。就增加功能而言，Decorator模式必生成子类（继承）更为灵活（消除重复代码&amp;减少子类个数）</p>
-
-        <h2 id="1-特征"   >
-          <a href="#1-特征" class="heading-link"><i class="fas fa-link"></i></a><a href="#1-特征" class="headerlink" title="1.特征"></a>1.特征</h2>
-      <p>如果有一个类，既继承了基类，又组合了基类（即声明了基类），那么极有可能是使用了装饰模式，因为一般而言继承了就不组合，组合了就不继承。<br>继承的目的是为了完善接口的规范，而组合是为了使用具体的对象类、 </p>
-
-        <h2 id="2-理解和说明"   >
-          <a href="#2-理解和说明" class="heading-link"><i class="fas fa-link"></i></a><a href="#2-理解和说明" class="headerlink" title="2. 理解和说明"></a>2. 理解和说明</h2>
-      <p>有一个基类stream，有三个子类，filestream，netstream，buffstream，分别代表文件，网络和缓冲的流操作，它们是继承自stream的。假设此时filestream需要有额外的加密操作，非常自然的，我们想到设计对象，直接继承filestream即可。如果网络也有这个需求的话呢，是否又要再设计一个对象去继承netstream呢，这样会造成对继承的滥用。应该认识到，file，net和buff是对基类的合理继承，他们是基于主体的不同而得到的合理继承，但是加密操作，是一个附加的功能，并非主体，对于file，net和buff而言，应该是加密操作“装饰”到其之上，其可选可不选这样的操作才更加合理。装饰模式应运而生。<br>设计一个装饰类，它继承自基类，同时组合基类。在此基础上，上述的加密操作单独设计一个类，它继承自装饰类。在其中重写基类的各种操作，并加上共同的加密部分代码，而在具体的要操作谁的过程中，可以通过传入的参数实例化基类来决定。<br>![[Pasted image 20220402113516.png]]<br>这样整体的结构就变成如上所示，类似加密的操作放在装饰器类之下，当我们需要一个可以进行加密的file流对象的时候，直接将FileStream实例化出来的对象传入装饰器下提供了加密操作的类的实例对象即可，通用了加密部分的代码。</p>
-
-        <h1 id="桥模式"   >
-          <a href="#桥模式" class="heading-link"><i class="fas fa-link"></i></a><a href="#桥模式" class="headerlink" title="桥模式"></a>桥模式</h1>
-      <p>将抽象和行为划分开来，各自独立，但能动态的结合。<br>与装饰模式一样，是对于设计模式中的单一指责来进行修改的，其中装饰模式是对于很多附加功能的修改，而桥模式是针对多维度。</p>
+<h1 id="装饰模式"><a href="#装饰模式" class="headerlink" title="装饰模式"></a>装饰模式</h1><p>动态（组合）地给一个对象增加一些额外的指责。就增加功能而言，Decorator模式必生成子类（继承）更为灵活（消除重复代码&amp;减少子类个数）</p>
+<h2 id="1-特征"><a href="#1-特征" class="headerlink" title="1.特征"></a>1.特征</h2><p>如果有一个类，既继承了基类，又组合了基类（即声明了基类），那么极有可能是使用了装饰模式，因为一般而言继承了就不组合，组合了就不继承。<br>继承的目的是为了完善接口的规范，而组合是为了使用具体的对象类、 </p>
+<h2 id="2-理解和说明"><a href="#2-理解和说明" class="headerlink" title="2. 理解和说明"></a>2. 理解和说明</h2><p>有一个基类stream，有三个子类，filestream，netstream，buffstream，分别代表文件，网络和缓冲的流操作，它们是继承自stream的。假设此时filestream需要有额外的加密操作，非常自然的，我们想到设计对象，直接继承filestream即可。如果网络也有这个需求的话呢，是否又要再设计一个对象去继承netstream呢，这样会造成对继承的滥用。应该认识到，file，net和buff是对基类的合理继承，他们是基于主体的不同而得到的合理继承，但是加密操作，是一个附加的功能，并非主体，对于file，net和buff而言，应该是加密操作“装饰”到其之上，其可选可不选这样的操作才更加合理。装饰模式应运而生。<br>设计一个装饰类，它继承自基类，同时组合基类。在此基础上，上述的加密操作单独设计一个类，它继承自装饰类。在其中重写基类的各种操作，并加上共同的加密部分代码，而在具体的要操作谁的过程中，可以通过传入的参数实例化基类来决定。<br>![[Pasted image 20220402113516.png]]<br>这样整体的结构就变成如上所示，类似加密的操作放在装饰器类之下，当我们需要一个可以进行加密的file流对象的时候，直接将FileStream实例化出来的对象传入装饰器下提供了加密操作的类的实例对象即可，通用了加密部分的代码。</p>
+<h1 id="桥模式"><a href="#桥模式" class="headerlink" title="桥模式"></a>桥模式</h1><p>将抽象和行为划分开来，各自独立，但能动态的结合。<br>与装饰模式一样，是对于设计模式中的单一指责来进行修改的，其中装饰模式是对于很多附加功能的修改，而桥模式是针对多维度。</p>
 <blockquote>
 <p>比如针对某个软件的开发，有两个维度，平台和版本，分别设计基类，可以实例化出mobile平台，完成版和完美版。此时使用的组合的方式，在平台基类中声明一个平台类，并在构造函数中进行初始化，这样实现了两个维度的融合。</p>
 </blockquote>
 <blockquote>
 <p>上述内容如果不使用桥模式，那么一般来说会先设计一个软件基类，其中包括了平台和版本各自的实现方式，然后根据不同的平台版本组合不断的进行继承产出子类，这样会导致过多的子类产出，同时代码的复用性也降低了。</p>
 </blockquote>
+<h1 id="工厂方法"><a href="#工厂方法" class="headerlink" title="工厂方法"></a>工厂方法</h1><p>定义一个用于创建对象的接口，让子类决定实例化哪一个类，Factory Method使得一个类的实例化延迟（目的：解耦， 手段：虚函数）到子类</p>
+<h1 id="抽象工厂"><a href="#抽象工厂" class="headerlink" title="抽象工厂"></a>抽象工厂</h1><p>提供一个接口，让该接口负责创建一系列相关或者相互依赖的对象，无需指定它们具体的类。</p>
+<h1 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h1><p>使用原型实例指定对象的种类，然后通过拷贝这些原型来创建新的对象。</p>
+<h1 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h1><h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p>软件系统中，有些类比较特殊，必须保证它们再系统中只存在一个实例，才能保证它们的逻辑正确性和良好的效率。</p>
 
-        <h1 id="工厂方法"   >
-          <a href="#工厂方法" class="heading-link"><i class="fas fa-link"></i></a><a href="#工厂方法" class="headerlink" title="工厂方法"></a>工厂方法</h1>
-      <p>定义一个用于创建对象的接口，让子类决定实例化哪一个类，Factory Method使得一个类的实例化延迟（目的：解耦， 手段：虚函数）到子类</p>
+    </div>
 
-        <h1 id="抽象工厂"   >
-          <a href="#抽象工厂" class="heading-link"><i class="fas fa-link"></i></a><a href="#抽象工厂" class="headerlink" title="抽象工厂"></a>抽象工厂</h1>
-      <p>提供一个接口，让该接口负责创建一系列相关或者相互依赖的对象，无需指定它们具体的类。</p>
+    
+    
+    
 
-        <h1 id="原型模式"   >
-          <a href="#原型模式" class="heading-link"><i class="fas fa-link"></i></a><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h1>
-      <p>使用原型实例指定对象的种类，然后通过拷贝这些原型来创建新的对象。</p>
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"># 设计模式</a>
+          </div>
 
-        <h1 id="单例模式"   >
-          <a href="#单例模式" class="heading-link"><i class="fas fa-link"></i></a><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h1>
-      
-        <h2 id="动机"   >
-          <a href="#动机" class="heading-link"><i class="fas fa-link"></i></a><a href="#动机" class="headerlink" title="动机"></a>动机</h2>
-      <p>软件系统中，有些类比较特殊，必须保证它们再系统中只存在一个实例，才能保证它们的逻辑正确性和良好的效率。</p>
-</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="http://example.com">John Doehexo</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="http://example.com/2022/08/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-1/">http://example.com/2022/08/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-1/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://example.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2022/08/20/shell%E7%BC%96%E7%A8%8B%EF%BC%881%EF%BC%89/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">shell编程（1）</span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99"><span class="toc-number">1.</span> <span class="toc-text">
-          面向对象设计原则</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%881%EF%BC%89"><span class="toc-number">1.1.</span> <span class="toc-text">
-          设计原则（1）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%882%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">
-          设计原则（2）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%883%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">
-          设计原则（3）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%884%EF%BC%89"><span class="toc-number">1.4.</span> <span class="toc-text">
-          设计原则（4）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%885%EF%BC%89"><span class="toc-number">1.5.</span> <span class="toc-text">
-          设计原则（5）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%886%EF%BC%89"><span class="toc-number">1.6.</span> <span class="toc-text">
-          设计原则（6）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%887%EF%BC%89"><span class="toc-number">1.7.</span> <span class="toc-text">
-          设计原则（7）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%888%EF%BC%89"><span class="toc-number">1.8.</span> <span class="toc-text">
-          设计原则（8）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">
-          模板方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F-strategty"><span class="toc-number">3.</span> <span class="toc-text">
-          策略模式(strategty )</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="toc-number">4.</span> <span class="toc-text">
-          观察者模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F"><span class="toc-number">5.</span> <span class="toc-text">
-          装饰模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%89%B9%E5%BE%81"><span class="toc-number">5.1.</span> <span class="toc-text">
-          1.特征</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%90%86%E8%A7%A3%E5%92%8C%E8%AF%B4%E6%98%8E"><span class="toc-number">5.2.</span> <span class="toc-text">
-          2. 理解和说明</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A1%A5%E6%A8%A1%E5%BC%8F"><span class="toc-number">6.</span> <span class="toc-text">
-          桥模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95"><span class="toc-number">7.</span> <span class="toc-text">
-          工厂方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82"><span class="toc-number">8.</span> <span class="toc-text">
-          抽象工厂</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F"><span class="toc-number">9.</span> <span class="toc-text">
-          原型模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="toc-number">10.</span> <span class="toc-text">
-          单例模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%9C%BA"><span class="toc-number">10.1.</span> <span class="toc-text">
-          动机</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/wallhaven-wq7d77.png" alt="avatar"></div><p class="sidebar-ov-author__text">Just do it!</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/tiankongchuan/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="610553875" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:610553875@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">QQ 邮箱</span></a></div><div class="sidebar-ov-feed"><span class="sidebar-ov-feed-rss"><a class="sidebar-ov-feed-rss__link" href="/atom.xml" target="_blank" rel="noopener"><span class="sidebar-ov-feed-rss__icon"><i class="fas fa-rss"></i></span><span>RSS Subscribe</span></a></span></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Archives</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__devider"></span><span>玻璃房科技支持</span></div><div><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.7.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.7.0"></script><script src="/js/stun-boot.js?v=2.7.0"></script><script src="/js/scroll.js?v=2.7.0"></script><script src="/js/header.js?v=2.7.0"></script><script src="/js/sidebar.js?v=2.7.0"></script></body></html>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/08/20/shell%E7%BC%96%E7%A8%8B%EF%BC%881%EF%BC%89/" rel="next" title="shell编程（1）">
+                  shell编程（1） <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doehexo</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
