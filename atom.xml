@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>黄钰的博客</title>
+  
+  <subtitle>天空船</subtitle>
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2022-08-20T01:58:38.153Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>John Doehexo</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>shell编程（1）</title>
+    <link href="http://example.com/2022/08/20/shell%E7%BC%96%E7%A8%8B%EF%BC%881%EF%BC%89/"/>
+    <id>http://example.com/2022/08/20/shell%E7%BC%96%E7%A8%8B%EF%BC%881%EF%BC%89/</id>
+    <published>2022-08-20T01:52:18.646Z</published>
+    <updated>2022-08-20T01:58:38.153Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;一个shell程序的基本规范&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="shell" scheme="http://example.com/tags/shell/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式(1)</title>
+    <link href="http://example.com/2022/08/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-1/"/>
+    <id>http://example.com/2022/08/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-1/</id>
+    <published>2022-08-19T14:11:50.000Z</published>
+    <updated>2022-08-19T15:44:24.027Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;从原理到具体例子详细说明设计模式&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="设计模式" scheme="http://example.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+</feed>
