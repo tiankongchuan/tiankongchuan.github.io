@@ -6,25 +6,38 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-08-20T05:01:06.357Z</updated>
+  <updated>2022-08-20T07:47:33.949Z</updated>
   <id>http://example.com/</id>
   
   <author>
-    <name>John Doehexo</name>
+    <name>黄钰</name>
     
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>test</title>
+    <link href="http://example.com/2022/08/20/test/"/>
+    <id>http://example.com/2022/08/20/test/</id>
+    <published>2022-08-20T07:47:33.000Z</published>
+    <updated>2022-08-20T07:47:33.949Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>shell编程（1）</title>
     <link href="http://example.com/2022/08/20/shell%E7%BC%96%E7%A8%8B%EF%BC%881%EF%BC%89/"/>
     <id>http://example.com/2022/08/20/shell%E7%BC%96%E7%A8%8B%EF%BC%881%EF%BC%89/</id>
     <published>2022-08-20T01:52:18.646Z</published>
-    <updated>2022-08-20T05:01:06.357Z</updated>
+    <updated>2022-08-20T07:48:34.360Z</updated>
     
     
-    <summary type="html">&lt;p&gt;一个shell程序的基本规范&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;一个shell程序的基本规范！&lt;/p&gt;</summary>
     
     
     
@@ -38,10 +51,10 @@
     <link href="http://example.com/2022/08/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-1/"/>
     <id>http://example.com/2022/08/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-1/</id>
     <published>2022-08-19T14:11:50.000Z</published>
-    <updated>2022-08-19T15:44:24.027Z</updated>
+    <updated>2022-08-20T07:48:41.005Z</updated>
     
     
-    <summary type="html">&lt;p&gt;从原理到具体例子详细说明设计模式&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;从原理到具体例子详细说明设计模式！&lt;/p&gt;</summary>
     
     
     
