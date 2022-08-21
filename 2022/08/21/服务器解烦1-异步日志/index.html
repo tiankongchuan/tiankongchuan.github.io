@@ -27,12 +27,12 @@
 <meta property="og:site_name" content="黄钰的博客">
 <meta property="og:description" content="异步日志的实现详解。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2022/08/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A7%A3%E7%83%A61-%E5%BC%82%E6%AD%A5%E6%97%A5%E5%BF%97/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A7%A3%E7%83%A61-%E5%BC%82%E6%AD%A5%E6%97%A5%E5%BF%97/20937170_1470137567WdN0.png">
+<meta property="og:image" content="http://example.com/2022/08/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A7%A3%E7%83%A61-%E5%BC%82%E6%AD%A5%E6%97%A5%E5%BF%97/20937170_1470137567WdN0-166106538096311.png">
 <meta property="article:published_time" content="2022-08-21T04:06:41.000Z">
-<meta property="article:modified_time" content="2022-08-21T06:46:37.409Z">
+<meta property="article:modified_time" content="2022-08-21T09:16:57.360Z">
 <meta property="article:author" content="黄钰">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/08/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A7%A3%E7%83%A61-%E5%BC%82%E6%AD%A5%E6%97%A5%E5%BF%97/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A7%A3%E7%83%A61-%E5%BC%82%E6%AD%A5%E6%97%A5%E5%BF%97/20937170_1470137567WdN0.png">
+<meta name="twitter:image" content="http://example.com/2022/08/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A7%A3%E7%83%A61-%E5%BC%82%E6%AD%A5%E6%97%A5%E5%BF%97/20937170_1470137567WdN0-166106538096311.png">
 
 
 <link rel="canonical" href="http://example.com/2022/08/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A7%A3%E7%83%A61-%E5%BC%82%E6%AD%A5%E6%97%A5%E5%BF%97/">
@@ -146,7 +146,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80-Log%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">一. Log类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">1. 单例模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-write-log%E7%9A%84%E5%BD%A2%E5%8F%82%E8%A7%A3%E9%87%8A"><span class="nav-number">1.2.</span> <span class="nav-text">2. write_log的形参解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A6%82%E8%BF%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">a. 可变参数概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E7%9A%84%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.2.2.</span> <span class="nav-text">b.可变参数的底层实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E7%9A%84%E5%85%B7%E4%BD%93%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.3.</span> <span class="nav-text">c. 可变参数的具体函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C-%E5%87%BD%E6%95%B0%E6%8B%86%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">二. 函数拆解</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80-Log%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">一. Log类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">1. 单例模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%90%84%E5%8F%82%E6%95%B0%E8%A7%A3%E9%87%8A"><span class="nav-number">1.2.</span> <span class="nav-text">2. 各参数解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-write-log%E7%9A%84%E5%BD%A2%E5%8F%82%E8%A7%A3%E9%87%8A"><span class="nav-number">1.3.</span> <span class="nav-text">3. write_log的形参解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A6%82%E8%BF%B0"><span class="nav-number">1.3.1.</span> <span class="nav-text">a. 可变参数概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E7%9A%84%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.3.2.</span> <span class="nav-text">b.可变参数的底层实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E7%9A%84%E5%85%B7%E4%BD%93%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.3.</span> <span class="nav-text">c. 可变参数的具体函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C-%E5%87%BD%E6%95%B0%E6%8B%86%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">二. 函数拆解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-init"><span class="nav-number">2.1.</span> <span class="nav-text">1. init</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-async-write-log"><span class="nav-number">2.2.</span> <span class="nav-text">2. async_write_log</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -161,12 +161,12 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
@@ -266,7 +266,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2022-08-21 12:06:41 / Modified: 14:46:37" itemprop="dateCreated datePublished" datetime="2022-08-21T12:06:41+08:00">2022-08-21</time>
+      <time title="Created: 2022-08-21 12:06:41 / Modified: 17:16:57" itemprop="dateCreated datePublished" datetime="2022-08-21T12:06:41+08:00">2022-08-21</time>
     </span>
 
   
@@ -276,14 +276,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>2.2k</span>
+      <span>3k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>2 mins.</span>
+      <span>3 mins.</span>
     </span>
 </div>
 
@@ -314,12 +314,16 @@
 <blockquote>
 <p>If control enters the declaration concurrently while the variable is being initialized, the concurrent execution shall wait for completion of the initialization.<br>如果当变量在初始化的时候，并发同时进入声明语句，并发线程将会阻塞等待初始化结束。</p>
 </blockquote>
-<h2 id="2-write-log的形参解释"><a href="#2-write-log的形参解释" class="headerlink" title="2. write_log的形参解释"></a>2. write_log的形参解释</h2><h3 id="a-可变参数概述"><a href="#a-可变参数概述" class="headerlink" title="a. 可变参数概述"></a>a. 可变参数概述</h3><p>最大的问题在于，三个点是什么意思？</p>
+<h2 id="2-各参数解释"><a href="#2-各参数解释" class="headerlink" title="2. 各参数解释"></a>2. 各参数解释</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> dir_name[<span class="number">128</span>]; <span class="comment">//路径名,日志文件放在哪</span></span><br><span class="line"><span class="type">char</span> log_name[<span class="number">128</span>]; <span class="comment">// log文件名</span></span><br><span class="line"><span class="type">int</span> m_split_lines;  <span class="comment">//日志最大行数</span></span><br><span class="line"><span class="type">int</span> m_log_buf_size; <span class="comment">//日志缓冲区大小</span></span><br><span class="line"><span class="type">long</span> <span class="type">long</span> m_count;  <span class="comment">//日志行数记录</span></span><br><span class="line"><span class="type">int</span> m_today;        <span class="comment">//因为按天分类,记录当前时间是那一天</span></span><br><span class="line">FILE *m_fp;         <span class="comment">//打开log的文件指针</span></span><br><span class="line"><span class="type">char</span> *m_buf;</span><br><span class="line">block_queue&lt;string&gt; *m_log_queue; <span class="comment">//阻塞队列</span></span><br><span class="line"><span class="type">bool</span> m_is_async;                  <span class="comment">//是否同步标志位</span></span><br><span class="line">locker m_mutex;</span><br><span class="line"><span class="type">int</span> m_close_log; <span class="comment">//关闭日志</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-write-log的形参解释"><a href="#3-write-log的形参解释" class="headerlink" title="3. write_log的形参解释"></a>3. write_log的形参解释</h2><h3 id="a-可变参数概述"><a href="#a-可变参数概述" class="headerlink" title="a. 可变参数概述"></a>a. 可变参数概述</h3><p>最大的问题在于，三个点是什么意思？</p>
 <p>实际上，这代表了可变参数，即在此处可以输入任意个参数。考虑printf，scanf等函数，它们也允许用户输入多个参数，其背后就是通过可变参数来实现的。</p>
 <blockquote>
 <p>进一步的，同名不同参数的函数让人联想到函数重载，在C语言当中，通过这样的可变参数从某种角度来说也可以实现重载，但是需要注意的是，可变参数左侧是一定要有参数存在的，这与其底层实现有关。</p>
 </blockquote>
-<h3 id="b-可变参数的底层实现"><a href="#b-可变参数的底层实现" class="headerlink" title="b.可变参数的底层实现"></a>b.可变参数的底层实现</h3><p><img src="%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A7%A3%E7%83%A61-%E5%BC%82%E6%AD%A5%E6%97%A5%E5%BF%97/20937170_1470137567WdN0.png" alt="img"></p>
+<h3 id="b-可变参数的底层实现"><a href="#b-可变参数的底层实现" class="headerlink" title="b.可变参数的底层实现"></a>b.可变参数的底层实现</h3><p><img src="20937170_1470137567WdN0-166106538096311.png" alt="服务器解烦1-异步日志"></p>
 <p>函数传参要用到栈，栈区的增长是从高地址到低地址的。</p>
 <p>如果知道开始位置以及每个参数的类型，那么得到每个参数就不再困难，所以，使用可变参数的时候必须要指定它们上一个参数帮其定位，每次读取的时候指定类型依次读取即可。</p>
 <h3 id="c-可变参数的具体函数"><a href="#c-可变参数的具体函数" class="headerlink" title="c. 可变参数的具体函数"></a>c. 可变参数的具体函数</h3><p>具体见一下代码:</p>
@@ -328,7 +332,26 @@
 <p>va_list vp创建了一个指向可变参数的指针，但是它还没有明确的地址指向。</p>
 <p>使用va_start之后，确定了a是它上一个参数，位置得到了确定。</p>
 <p>在循环之中使用va_arg依次进行int类型数据的读取，注意此处的循环次数是由a决定的，所以这里的a，或者说这个指明位置的参数还有指明大小的作用，进一步考虑，在printf中，%d%s这些内容也就是写在我们a这个位置的，它还指明了或者规定了后面需要传什么参数类型，所以这个a是非常重要的。</p>
-<h1 id="二-函数拆解"><a href="#二-函数拆解" class="headerlink" title="二. 函数拆解"></a>二. 函数拆解</h1>
+<h1 id="二-函数拆解"><a href="#二-函数拆解" class="headerlink" title="二. 函数拆解"></a>二. 函数拆解</h1><h2 id="1-init"><a href="#1-init" class="headerlink" title="1. init"></a>1. init</h2><p>初始化，做了以下几件事</p>
+<ol>
+<li><p>判断最后一个参数max_queue_size是否为0，如果是则同步写日志，否则是异步写日志，将创建一个子线程来写。同时将你输入的参数值作为阻塞队列的大小。</p>
+</li>
+<li><p>日志文件的缓存区大小</p>
+</li>
+<li><p>日志文件的最大行数</p>
+</li>
+<li><p>确定当前日期</p>
+</li>
+<li><p>确定日志位置，打开日志文件</p>
+<p>这里有两个分支需要判断，如果传入的file_name没有斜杠，说明用户传入的只是文件名，那么用时间+文件名作为待会要打开的对象，如果有斜杠，说明还包含了地址，那么应该拆分出来，然后再以地址+时间+文件名（此处的文件名剥离了地址）作为待会要打开的对象。然后直接fopen即可。</p>
+</li>
+</ol>
+<h2 id="2-async-write-log"><a href="#2-async-write-log" class="headerlink" title="2. async_write_log"></a>2. async_write_log</h2><p>​    在init中说到，如果输入的max_queue_size不为0，那么将创造一个工作线程，使用阻塞队列来进行日志文件的读写。其具体代码为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> *<span class="title">async_write_log</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    string single_log;</span><br><span class="line">    <span class="comment">//从阻塞队列中取出一个日志string，写入文件</span></span><br><span class="line">    <span class="keyword">while</span> (m_log_queue-&gt;<span class="built_in">pop</span>(single_log))</span><br><span class="line">    &#123;</span><br><span class="line">        m_mutex.<span class="built_in">lock</span>();</span><br><span class="line">        <span class="built_in">fputs</span>(single_log.<span class="built_in">c_str</span>(), m_fp);</span><br><span class="line">        m_mutex.<span class="built_in">unlock</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
     </div>
 
     
@@ -363,6 +386,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2022/08/21/Linux%E4%B8%8B%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E6%97%B6%E9%97%B4/" rel="next" title="Linux下获取当前时间">
+                  Linux下获取当前时间 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -394,13 +420,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Symbols count total">7k</span>
+    <span title="Symbols count total">8k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">6 mins.</span>
+    <span title="Reading time total">7 mins.</span>
   </span>
 </div>
 
