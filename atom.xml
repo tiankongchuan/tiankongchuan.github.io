@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-08-20T07:47:33.949Z</updated>
+  <updated>2022-08-21T02:28:28.912Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>服务器解烦(1)_异步日志的实现</title>
+    <link href="http://example.com/2022/08/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A7%A3%E7%83%A6-1-%E5%BC%82%E6%AD%A5%E6%97%A5%E5%BF%97%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
+    <id>http://example.com/2022/08/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A7%A3%E7%83%A6-1-%E5%BC%82%E6%AD%A5%E6%97%A5%E5%BF%97%E7%9A%84%E5%AE%9E%E7%8E%B0/</id>
+    <published>2022-08-21T02:27:35.000Z</published>
+    <updated>2022-08-21T02:28:28.912Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html"></summary>
+        
+      
+    
+    
+    
+    
+    <category term="服务器" scheme="http://example.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>test</title>
