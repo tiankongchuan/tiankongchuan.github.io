@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-08-21T09:57:36.348Z</updated>
+  <updated>2022-08-21T14:33:20.227Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://example.com/2022/08/21/Linux%E4%B8%8B%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E6%97%B6%E9%97%B4/"/>
     <id>http://example.com/2022/08/21/Linux%E4%B8%8B%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E6%97%B6%E9%97%B4/</id>
     <published>2022-08-21T09:18:00.000Z</published>
-    <updated>2022-08-21T09:57:36.348Z</updated>
+    <updated>2022-08-21T14:33:20.227Z</updated>
     
     
     <summary type="html">&lt;p&gt;在Linux环境下C程序获取当前时间。&lt;/p&gt;</summary>
