@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Linux下C++/C语言连接Mysql踩的坑</title>
+      <link href="/2022/08/23/Linux%E4%B8%8BC%E8%AF%AD%E8%A8%80%E8%BF%9E%E6%8E%A5Mysql%E8%B8%A9%E7%9A%84%E5%9D%91/"/>
+      <url>/2022/08/23/Linux%E4%B8%8BC%E8%AF%AD%E8%A8%80%E8%BF%9E%E6%8E%A5Mysql%E8%B8%A9%E7%9A%84%E5%9D%91/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>由于生疏导致的问题。</p><span id="more"></span><p>首先是代码，要写内容的话基本都是下面这个样子（源自网络）：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;mysql/mysql.h&gt;</span></span></span><br><span class="line">using namespace <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    MYSQL mysql;</span><br><span class="line">    mysql_init(&amp;mysql);</span><br><span class="line">    <span class="keyword">if</span>(!mysql_real_connect(&amp;mysql,<span class="string">&quot;localhost.1&quot;</span>, <span class="string">&quot;root&quot;</span>, <span class="string">&quot;root&quot;</span>, <span class="string">&quot;yourdb&quot;</span>, <span class="number">3306</span>, <span class="literal">NULL</span>, <span class="number">0</span>))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; mysql_error(&amp;mysql) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">const</span> <span class="type">char</span>* sql = <span class="string">&quot;insert into sys_user(user_name, password, email, phone_num) values(&#x27;wangwu&#x27;, &#x27;789&#x27;, &#x27;123opi@qq.com&#x27;, &#x27;12341234123&#x27;);&quot;</span>;</span><br><span class="line">    mysql_query(&amp;mysql, sql);</span><br><span class="line">    mysql_close(&amp;mysql);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><ol><li><p>初始化问题</p><p>如果按照上述代码的写法，已经错了。直接定义MYSQL mysql的做法并不好，更加常见的做法是：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MYSQL *con=<span class="literal">NULL</span>;</span><br><span class="line">con=mysql_init(con);</span><br></pre></td></tr></table></figure><p>mysql_init中要传入NULL，如果按照上述的代码内容去写肯定出错，无法确定传入的内容的。</p></li><li><p>表的创建问题</p><p>这个是个人mysql不太熟练的问题，在创建test表的时候，给name和passwd两个字段设置成char类型了，这样导致写入的时候完全最多一个字符肯定错了。</p></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 编程技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>服务器解烦2_定时器</title>
       <link href="/2022/08/22/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A7%A3%E7%83%A62-%E5%AE%9A%E6%97%B6%E5%99%A8/"/>
       <url>/2022/08/22/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A7%A3%E7%83%A62-%E5%AE%9A%E6%97%B6%E5%99%A8/</url>
