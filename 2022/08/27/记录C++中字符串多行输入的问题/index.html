@@ -28,7 +28,7 @@
 <meta property="og:description" content="基本的输入问题。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-08-27T09:00:25.000Z">
-<meta property="article:modified_time" content="2022-08-27T10:54:23.548Z">
+<meta property="article:modified_time" content="2022-08-28T01:24:03.223Z">
 <meta property="article:author" content="黄钰">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="编程技术">
@@ -270,9 +270,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2022-08-27 17:00:25 / Modified: 18:54:23" itemprop="dateCreated datePublished" datetime="2022-08-27T17:00:25+08:00">2022-08-27</time>
+      <time title="Created: 2022-08-27 17:00:25" itemprop="dateCreated datePublished" datetime="2022-08-27T17:00:25+08:00">2022-08-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-08-28 09:24:03" itemprop="dateModified" datetime="2022-08-28T09:24:03+08:00">2022-08-28</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -291,7 +297,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>576</span>
+      <span>945</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -321,7 +327,18 @@
 <li>使用cin&gt;&gt;n之后，还有一个回车符留在缓冲中，不读取的话直接使用getline会把这个回车符当做一个字符串，会使得整个的读入次数少一次。</li>
 <li><strong>getline并非默认按照空格切割</strong>，下次再使用的时候，一定记得要加上空格。</li>
 </ol>
-<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>在输入的过程中只考虑使用cin和getline的话：</p>
+<ul>
+<li><p>cin：</p>
+<p>当cin&gt;&gt;从缓冲区中读取数据时，若缓冲区中第一个字符是空格、tab或换行这些分隔符时，cin&gt;&gt;会将其忽略并*<strong>清除</strong>，继续读取下一个字符，若缓冲区为空，则继续等待。但是如果读取成功，字符后面的分隔符是残留在缓冲区的，cin&gt;&gt;不做处理。</p>
+</li>
+<li><p>getline: </p>
+<p>原型是istream&amp; getline ( istream &amp;is , string &amp;str , char delim );</p>
+<p>is是一个输入流，比如cin，str是一个字符串，delim代表遇到这个字符串就停止。模式是<strong>\n</strong>;</p>
+<p>与cin最大的不同在于，getline遇空格并不会停止，遇到换行符才停止，并且这个换行符不会留在输入流中。所以要读取多行带字符串的空格的时候是不需要进行清理操作的。</p>
+</li>
+</ul>
+
     </div>
 
     
@@ -391,7 +408,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Symbols count total">14k</span>
+    <span title="Symbols count total">15k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
