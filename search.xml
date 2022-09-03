@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>C++中正则表达式应用向</title>
+      <link href="/2022/09/03/C++%E4%B8%AD%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%BA%94%E7%94%A8%E5%90%91/"/>
+      <url>/2022/09/03/C++%E4%B8%AD%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%BA%94%E7%94%A8%E5%90%91/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>C++常用的正则表达式函数使用</p><span id="more"></span><h1 id="regex"><a href="#regex" class="headerlink" title="regex"></a>regex</h1><p>首先需要引入头文件#include&lt;regex&gt;</p><p>对于已经了解过正则表达式的相关信息的人而言，最先关心的可能是，我写的正则表达式放在哪，一般而言可以写成:</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">regex <span class="title">reg</span><span class="params">(<span class="string">&quot;.&quot;</span>)</span></span></span><br><span class="line"><span class="function"><span class="comment">//在中间填入写好的正则表达式即可</span></span></span><br></pre></td></tr></table></figure><h1 id="regex-match"><a href="#regex-match" class="headerlink" title="regex_match"></a>regex_match</h1><p>该函数会进行全字符串匹配，也就是说如果你想做的是判断整个字符串能不能匹配你写的正则表达式，应该使用这个函数。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">string s = <span class="string">&quot;My card number is 123-456-789&quot;</span>;</span><br><span class="line"> <span class="function">regex <span class="title">number_regex</span><span class="params">(<span class="string">R&quot;(d&#123;3&#125;-d&#123;3&#125;-d&#123;3&#125;)&quot;</span>)</span></span>;</span><br><span class="line"> cout &lt;&lt; <span class="built_in">regex_match</span>(s, number_regex) &lt;&lt; endl;</span><br></pre></td></tr></table></figure><h1 id="regex-search"><a href="#regex-search" class="headerlink" title="regex_search"></a>regex_search</h1><p>如果输入的字符串子串能够匹配也会输出为真</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">string s = <span class="string">&quot;My card number is 123-456-789&quot;</span>;</span><br><span class="line"><span class="function">regex <span class="title">number_regex</span><span class="params">(<span class="string">R&quot;(d&#123;3&#125;-d&#123;3&#125;-d&#123;3&#125;)&quot;</span>)</span></span>;</span><br><span class="line">cout &lt;&lt; <span class="built_in">regex_search</span>(s, number_regex) &lt;&lt; endl;</span><br></pre></td></tr></table></figure><h1 id="regex-replace"><a href="#regex-replace" class="headerlink" title="regex_replace"></a>regex_replace</h1><p>顾名思义是拿来替换用的，你还需要传入一个字符串确定找到对应的子串之后该怎么操作。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">string s = <span class="string">&quot;My card number is 123-456-789&quot;</span>;</span><br><span class="line">    <span class="function">regex <span class="title">number_regex</span><span class="params">(<span class="string">R&quot;(d&#123;3&#125;-d&#123;3&#125;-d&#123;3&#125;)&quot;</span>)</span></span>;</span><br><span class="line">    string fmt = <span class="string">&quot;000-000-000&quot;</span>;</span><br><span class="line">    cout &lt;&lt; <span class="built_in">regex_replace</span>(s, number_regex, fmt) &lt;&lt; endl;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> C++ </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 正则表达式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>记录C++中字符串多行输入的问题</title>
       <link href="/2022/08/27/%E8%AE%B0%E5%BD%95C++%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%9A%E8%A1%8C%E8%BE%93%E5%85%A5%E7%9A%84%E9%97%AE%E9%A2%98/"/>
       <url>/2022/08/27/%E8%AE%B0%E5%BD%95C++%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%9A%E8%A1%8C%E8%BE%93%E5%85%A5%E7%9A%84%E9%97%AE%E9%A2%98/</url>

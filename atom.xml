@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-08-28T01:24:03.223Z</updated>
+  <updated>2022-09-03T07:14:33.251Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>C++中正则表达式应用向</title>
+    <link href="http://example.com/2022/09/03/C++%E4%B8%AD%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%BA%94%E7%94%A8%E5%90%91/"/>
+    <id>http://example.com/2022/09/03/C++%E4%B8%AD%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%BA%94%E7%94%A8%E5%90%91/</id>
+    <published>2022-09-03T03:49:04.000Z</published>
+    <updated>2022-09-03T07:14:33.251Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;C++常用的正则表达式函数使用&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="C++" scheme="http://example.com/categories/C/"/>
+    
+    
+    <category term="正则表达式" scheme="http://example.com/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>记录C++中字符串多行输入的问题</title>
