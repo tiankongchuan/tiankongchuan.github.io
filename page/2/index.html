@@ -115,7 +115,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -146,85 +146,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/14/%E4%B8%8EView%E7%9B%B8%E5%85%B3/measure%E8%AF%A6%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/1.jpg">
-      <meta itemprop="name" content="天空船">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天空船的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 天空船的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/08/14/%E4%B8%8EView%E7%9B%B8%E5%85%B3/measure%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">measure详解.md</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-08-14 22:25:40 / 修改时间：22:47:51" itemprop="dateCreated datePublished" datetime="2023-08-14T22:25:40+08:00">2023-08-14</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="view的绘制"><a href="#view的绘制" class="headerlink" title="view的绘制"></a>view的绘制</h1><p>首先需要明确，measure是一个final方法，但是其中会调用onMeasure方法。<br>对于measure方法，其中关键的一段内容是：<br>![[Pasted image 20230804142444.png]]<br>以上内容结合下面的measureSpec创建方式来看：<br>![[Pasted image 20230804142907.png]]<br>就非常明了的发现，对于默认的view而言，match_parent和warap_content得到的size其实都是parentSize，而默认view在绘制它们的时候，也不加区分的使用了这个值。所以对于直接继承了view的控件而言，需要对此进行区分，否则warap_content不起作用。</p>
-<hr>
-<p>一个需要明确的点是，对于view的方法：<br> <em>onMeasure(int widthMeasureSpec, int heightMeasureSpec)</em><br>是谁在调用？实际上是ViewGroup，也就是一般情况下view的父容器，这样就完全串联了。ViewGroup根据自己的measureSpec和子view的LayoutParams来获取子view的measureSpec，进而使用子view的measure方法把算出来的两个值传进去以绘制。随后就是上述的流程了。<br><strong>综上总结，父容器先算出子view的measureSpec，并且会直接调用子view的measure方法。此方法会调用onMeasure方法，根据得到的measureSpec计算大小。直接继承view<br>的控件要根据需求给出warap_content的值，否则设置的效果与match_parent一样</strong></p>
-<h1 id="什么时候才能获取view大小"><a href="#什么时候才能获取view大小" class="headerlink" title="什么时候才能获取view大小"></a>什么时候才能获取view大小</h1><p>明确地说，在onCrete、onStart、onMeasure方法中，都是不能正确获取到view的宽高信息的。因为measure的过程与Activity的生命周期并不同步。如果想要获取，有以下四种方式：</p>
-<ol>
-<li>onWindowFocusChanged<br> 需要注意的是，这个方法会在Activity的窗口得到和失去焦点的时候被调用，这意味着该方法是会被反复调用的，换言之，如果你的onResume和onPause调用很频繁，那么这个函数的调用也会很频繁，在这个函数内容处理逻辑的时候要考虑这种情况的发生。</li>
-<li>view.post(runnable)<br> 将消息投递到消息队列的尾部，此时的View已经初始化好了。</li>
-<li>ViewTreeObserver<br> 其中有很多的回调可以完成，比如使用onGlobalLayoutListener，当view树状态改变或者view树的view可见性发生改变的时候，onGlobalLayout方法会被回调，这是一个获取宽高的好时机，但是它也会有被调用多次的可能性，考虑这种情况对逻辑的影响。</li>
-<li>view.measure<br> 手动获取。。。一般别这样做。</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/14/%E4%B8%8EView%E7%9B%B8%E5%85%B3/MeasureSpec%E4%BA%86%E8%A7%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -243,7 +164,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/08/14/%E4%B8%8EView%E7%9B%B8%E5%85%B3/MeasureSpec%E4%BA%86%E8%A7%A3/" class="post-title-link" itemprop="url">MeasureSpec了解.md</a>
+          <a href="/2023/08/14/%E4%B8%8EView%E7%9B%B8%E5%85%B3/MeasureSpec%E4%BA%86%E8%A7%A3/" class="post-title-link" itemprop="url">未命名</a>
         </h2>
 
         <div class="post-meta-container">
@@ -253,9 +174,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-08-14 22:25:40 / 修改时间：22:47:51" itemprop="dateCreated datePublished" datetime="2023-08-14T22:25:40+08:00">2023-08-14</time>
+      <time title="创建时间：2023-08-14 22:51:49" itemprop="dateCreated datePublished" datetime="2023-08-14T22:51:49+08:00">2023-08-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-08-04 14:05:03" itemprop="dateModified" datetime="2023-08-04T14:05:03+08:00">2023-08-04</time>
     </span>
 
   
@@ -320,7 +247,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/08/14/%E4%B8%8EView%E7%9B%B8%E5%85%B3/Activity%E7%9A%84%E5%88%9B%E5%BB%BA/" class="post-title-link" itemprop="url">Activity的创建.md</a>
+          <a href="/2023/08/14/%E4%B8%8EView%E7%9B%B8%E5%85%B3/Activity%E7%9A%84%E5%88%9B%E5%BB%BA/" class="post-title-link" itemprop="url">未命名</a>
         </h2>
 
         <div class="post-meta-container">
@@ -330,9 +257,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-08-14 22:25:40 / 修改时间：22:47:51" itemprop="dateCreated datePublished" datetime="2023-08-14T22:25:40+08:00">2023-08-14</time>
+      <time title="创建时间：2023-08-14 22:51:49" itemprop="dateCreated datePublished" datetime="2023-08-14T22:51:49+08:00">2023-08-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-07-21 14:03:04" itemprop="dateModified" datetime="2023-07-21T14:03:04+08:00">2023-07-21</time>
     </span>
 
   
@@ -396,7 +329,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/08/14/%E4%B8%8EDrawable%E7%9B%B8%E5%85%B3/%E4%B8%8D%E5%90%8CDrawable%E7%B1%BB%E5%9E%8B%E6%A6%82%E8%A7%88/" class="post-title-link" itemprop="url">不同Drawable类型概览.md</a>
+          <a href="/2023/08/14/%E4%B8%8EDrawable%E7%9B%B8%E5%85%B3/%E4%B8%8D%E5%90%8CDrawable%E7%B1%BB%E5%9E%8B%E6%A6%82%E8%A7%88/" class="post-title-link" itemprop="url">未命名</a>
         </h2>
 
         <div class="post-meta-container">
@@ -406,9 +339,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-08-14 22:25:40 / 修改时间：22:47:51" itemprop="dateCreated datePublished" datetime="2023-08-14T22:25:40+08:00">2023-08-14</time>
+      <time title="创建时间：2023-08-14 22:51:49" itemprop="dateCreated datePublished" datetime="2023-08-14T22:51:49+08:00">2023-08-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-07-25 10:16:01" itemprop="dateModified" datetime="2023-07-25T10:16:01+08:00">2023-07-25</time>
     </span>
 
   
@@ -479,7 +418,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/08/14/%E9%80%9A%E7%94%A8%E5%86%85%E5%AE%B9/%E7%B2%BE%E7%AE%80%E7%89%88%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">精简版设计模式.md</a>
+          <a href="/2023/08/14/%E9%80%9A%E7%94%A8%E5%86%85%E5%AE%B9/%E7%B2%BE%E7%AE%80%E7%89%88%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">未命名</a>
         </h2>
 
         <div class="post-meta-container">
@@ -489,9 +428,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-08-14 22:25:40 / 修改时间：22:47:51" itemprop="dateCreated datePublished" datetime="2023-08-14T22:25:40+08:00">2023-08-14</time>
+      <time title="创建时间：2023-08-14 22:51:49" itemprop="dateCreated datePublished" datetime="2023-08-14T22:51:49+08:00">2023-08-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-08-06 17:19:55" itemprop="dateModified" datetime="2023-08-06T17:19:55+08:00">2023-08-06</time>
     </span>
 
   
@@ -558,7 +503,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/08/14/%E9%80%9A%E7%94%A8%E5%86%85%E5%AE%B9/%E6%8F%92%E4%BB%B6%E5%8C%96%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">插件化原理.md</a>
+          <a href="/2023/08/14/%E9%80%9A%E7%94%A8%E5%86%85%E5%AE%B9/%E6%8F%92%E4%BB%B6%E5%8C%96%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">未命名</a>
         </h2>
 
         <div class="post-meta-container">
@@ -570,7 +515,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2023-08-14 22:25:40 / 修改时间：22:47:51" itemprop="dateCreated datePublished" datetime="2023-08-14T22:25:40+08:00">2023-08-14</time>
+      <time title="创建时间：2023-08-14 22:51:49 / 修改时间：17:54:41" itemprop="dateCreated datePublished" datetime="2023-08-14T22:51:49+08:00">2023-08-14</time>
     </span>
 
   
@@ -637,7 +582,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/08/14/%E5%85%B6%E4%BB%96/Git%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%9A%84%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">Git工作流的学习.md</a>
+          <a href="/2023/08/14/%E5%85%B6%E4%BB%96/Git%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%9A%84%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">未命名</a>
         </h2>
 
         <div class="post-meta-container">
@@ -647,9 +592,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-08-14 22:25:40 / 修改时间：22:47:51" itemprop="dateCreated datePublished" datetime="2023-08-14T22:25:40+08:00">2023-08-14</time>
+      <time title="创建时间：2023-08-14 22:51:49" itemprop="dateCreated datePublished" datetime="2023-08-14T22:51:49+08:00">2023-08-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-07-14 14:35:39" itemprop="dateModified" datetime="2023-07-14T14:35:39+08:00">2023-07-14</time>
     </span>
 
   
@@ -723,7 +674,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/08/14/%E5%92%AA%E5%92%95%E4%B8%BB%E5%B7%A5%E7%A8%8B%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">知识总结.md</a>
+          <a href="/2023/08/14/%E5%92%AA%E5%92%95%E4%B8%BB%E5%B7%A5%E7%A8%8B%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">未命名</a>
         </h2>
 
         <div class="post-meta-container">
@@ -733,9 +684,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-08-14 22:25:40 / 修改时间：22:47:51" itemprop="dateCreated datePublished" datetime="2023-08-14T22:25:40+08:00">2023-08-14</time>
+      <time title="创建时间：2023-08-14 22:51:49" itemprop="dateCreated datePublished" datetime="2023-08-14T22:51:49+08:00">2023-08-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-08-07 18:21:02" itemprop="dateModified" datetime="2023-08-07T18:21:02+08:00">2023-08-07</time>
     </span>
 
   
@@ -794,7 +751,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/08/14/%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/ColorSeekBar/" class="post-title-link" itemprop="url">ColorSeekBar.md</a>
+          <a href="/2023/08/14/%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/ColorSeekBar/" class="post-title-link" itemprop="url">未命名</a>
         </h2>
 
         <div class="post-meta-container">
@@ -804,9 +761,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-08-14 22:25:40 / 修改时间：22:47:51" itemprop="dateCreated datePublished" datetime="2023-08-14T22:25:40+08:00">2023-08-14</time>
+      <time title="创建时间：2023-08-14 22:51:49" itemprop="dateCreated datePublished" datetime="2023-08-14T22:51:49+08:00">2023-08-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-07-31 14:04:17" itemprop="dateModified" datetime="2023-07-31T14:04:17+08:00">2023-07-31</time>
     </span>
 
   
@@ -880,7 +843,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/08/14/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9B%B8%E5%85%B3/%E8%BF%90%E8%A1%8C%E5%B7%A5%E7%A8%8B%E7%9A%84%E6%B5%81%E7%A8%8B/" class="post-title-link" itemprop="url">运行工程的流程.md</a>
+          <a href="/2023/08/14/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9B%B8%E5%85%B3/%E8%BF%90%E8%A1%8C%E5%B7%A5%E7%A8%8B%E7%9A%84%E6%B5%81%E7%A8%8B/" class="post-title-link" itemprop="url">未命名</a>
         </h2>
 
         <div class="post-meta-container">
@@ -890,9 +853,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-08-14 22:25:40 / 修改时间：22:47:51" itemprop="dateCreated datePublished" datetime="2023-08-14T22:25:40+08:00">2023-08-14</time>
+      <time title="创建时间：2023-08-14 22:51:49" itemprop="dateCreated datePublished" datetime="2023-08-14T22:51:49+08:00">2023-08-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-07-14 15:36:00" itemprop="dateModified" datetime="2023-07-14T15:36:00+08:00">2023-07-14</time>
     </span>
 
   
@@ -929,8 +898,123 @@
 
 
 
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/14/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9B%B8%E5%85%B3/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E5%AD%98%E5%9C%A8%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%85%B3%E7%B3%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/1.jpg">
+      <meta itemprop="name" content="天空船">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天空船的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 天空船的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/08/14/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9B%B8%E5%85%B3/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E5%AD%98%E5%9C%A8%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%85%B3%E7%B3%BB/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-08-14 22:51:49" itemprop="dateCreated datePublished" datetime="2023-08-14T22:51:49+08:00">2023-08-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-07-28 09:21:37" itemprop="dateModified" datetime="2023-07-28T09:21:37+08:00">2023-07-28</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Gradle 是一个构建工具，用于编译、构建和打包 Android 应用程序。Android 插件是与 Gradle 配合使用的插件，专门用于构建和管理 Android 项目。这些组件之间存在一些关系和约束。</p>
+<ol>
+<li><p>Gradle 版本与 Android 插件版本关系： 不同版本的 Android 插件对 Gradle 的版本有特定的要求。通常，在使用新版本的 Android 插件之前，需要确保你的 Gradle 版本满足最低要求。你可以在官方文档中找到 Android 插件与 Gradle 版本之间的兼容性表格，确保你选择的 Android 插件版本支持你所使用的 Gradle 版本。</p>
+</li>
+<li><p>Android 插件版本与 Android 版本关系： Android 插件版本决定了你可以在 Android 项目中使用的功能和构建选项。较新的 Android 插件通常支持更多的功能和新的 Android 版本特性。因此，如果你希望在项目中使用最新的 Android 功能，你需要使用相应的 Android 插件版本，并确保你的 <code>targetSdkVersion</code> 和 <code>compileSdkVersion</code> 对应到该版本所支持的 Android 版本。</p>
+</li>
+<li><p>Android 版本与 SDK 版本关系： Android 版本是指 Android 操作系统的版本，而 SDK (Software Development Kit) 版本则是指用于开发 Android 应用程序的开发工具集版本。每个 Android 版本都对应一个特定的 SDK 版本，这个 SDK 包含了开发应用所需的 API 和工具。你需要选择一个适合你的应用程序目标受众和功能需求的 Android 版本，并使用相应的 SDK 版本进行开发。</p>
+</li>
+<li><p>SDK 版本与 JDK 版本关系： JDK (Java Development Kit) 是用于开发 Java 应用程序的工具集。Android 应用程序的开发依赖于 Java 编程语言，因此你需要安装 JDK。与 SDK 版本相比，JDK 版本在 Android 开发中的选择没有那么严格的要求，因为 Android 应用程序并不直接依赖于 JDK 版本。然而，为了获得最佳性能和兼容性，建议使用较新的 JDK 版本。</p>
+</li>
+</ol>
+<p>约束关系总结：</p>
+<ul>
+<li>Gradle 版本要与所使用的 Android 插件版本兼容。</li>
+<li>Android 插件版本要与你的目标 Android 版本兼容，并决定了你可以使用的构建选项和功能。</li>
+<li>你的 <code>targetSdkVersion</code> 和 <code>compileSdkVersion</code> 应与所使用的 Android 插件版本相匹配。</li>
+<li>SDK 版本是你用于开发 Android 应用程序的工具集，需要与你的目标 Android 版本兼容。</li>
+<li>JDK 版本是你用于开发 Android 应用程序的 Java 开发工具，建议使用较新的版本以获得更好的性能和兼容性。</li>
+</ul>
+<hr>
+<ol>
+<li><p>Gradle版本和AGP版本的约束：</p>
+<ul>
+<li>不同版本的AGP可能需要特定版本的Gradle进行构建。通常，在升级AGP版本时，你需要检查官方文档或发布说明，以找到与该AGP版本兼容的Gradle版本。在项目的根目录的<code>build.gradle</code>文件中，你会看到类似于<code>com.android.tools.build:gradle:4.2.0</code>的声明，其中的<code>4.2.0</code>就是对应的AGP版本。</li>
+<li>AGP版本和Gradle版本的对应关系可以在Android开发者网站或Android开发者工具的官方文档中找到。确保使用匹配的Gradle版本和AGP版本是确保项目可以成功构建的关键。</li>
+</ul>
+</li>
+<li><p>AGP版本和Android SDK版本的约束：</p>
+<ul>
+<li>AGP版本通常支持一定范围的Android SDK版本。比如，AGP版本<code>4.2.0</code>可能支持Android SDK版本<code>21</code>到<code>31</code>。你可以在AGP版本的发布说明或官方文档中找到支持的Android SDK版本范围。</li>
+<li>在项目的<code>build.gradle</code>文件中，你可以通过<code>compileSdkVersion</code>和<code>targetSdkVersion</code>来指定项目使用的Android SDK版本。<code>compileSdkVersion</code>指定编译时使用的SDK版本，而<code>targetSdkVersion</code>指定应用程序目标运行的Android版本。确保<code>compileSdkVersion</code>和<code>targetSdkVersion</code>与你选择的AGP版本兼容。</li>
+</ul>
+</li>
+<li><p>Android SDK版本和目标Android版本的约束：</p>
+<ul>
+<li><code>compileSdkVersion</code>指定的Android SDK版本应该足够包含你在项目中使用的所有API和功能。这意味着你需要选择一个兼容目标设备的SDK版本。</li>
+<li><code>targetSdkVersion</code>指定应用程序目标运行的Android版本。确保应用程序在该目标版本上的功能和行为符合预期。</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
