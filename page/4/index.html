@@ -146,7 +146,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/14/%E4%B8%8E%E5%8A%A8%E7%94%BB%E7%9B%B8%E5%85%B3/%E5%B1%9E%E6%80%A7%E5%8A%A8%E7%94%BB/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/14/java%E5%86%85%E5%AE%B9%E8%A1%A5%E5%85%85/Lambda%E5%AD%A6%E4%B9%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/1.jpg">
@@ -164,7 +164,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/08/14/%E4%B8%8E%E5%8A%A8%E7%94%BB%E7%9B%B8%E5%85%B3/%E5%B1%9E%E6%80%A7%E5%8A%A8%E7%94%BB/" class="post-title-link" itemprop="url">未命名</a>
+          <a href="/2023/08/14/java%E5%86%85%E5%AE%B9%E8%A1%A5%E5%85%85/Lambda%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">Lambda学习</a>
         </h2>
 
         <div class="post-meta-container">
@@ -174,15 +174,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2023-08-14 22:51:49" itemprop="dateCreated datePublished" datetime="2023-08-14T22:51:49+08:00">2023-08-14</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-07-25 14:38:16" itemprop="dateModified" datetime="2023-07-25T14:38:16+08:00">2023-07-25</time>
+      <time title="创建时间：2023-08-14 23:03:34 / 修改时间：23:03:39" itemprop="dateCreated datePublished" datetime="2023-08-14T23:03:34+08:00">2023-08-14</time>
     </span>
 
   
@@ -195,17 +189,14 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="常见类"><a href="#常见类" class="headerlink" title="常见类"></a>常见类</h1><ol>
-<li>ValueAnimator</li>
-<li>ObjectAnimator</li>
-<li>AnimatorSet<br>其中ObjectAnimator继承自ValueAnimator</li>
+          <h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><p>([Lambda参数列表，即形参列表]) -&gt; {Lambda体，即方法体}<br>拷贝小括号，写死右箭头，落地大括号，大括号中写上业务逻辑</p>
+<h1 id="不同分类的写法"><a href="#不同分类的写法" class="headerlink" title="不同分类的写法"></a>不同分类的写法</h1><ol>
+<li>无参无返回：()中无参数，也不能省略；{}中只有一句话，建议省略。</li>
+<li>有参无返回：参数的类型是确定的，则可省略；只有一个形参，()可以省略；</li>
+<li>无参有返回：只有一个return，可以省略return。</li>
+<li>有参有返回值：遵循以上规则</li>
 </ol>
-<h1 id="监听器"><a href="#监听器" class="headerlink" title="监听器"></a>监听器</h1><p>两个接口：</p>
-<ul>
-<li>AnimoatorUpdataListener</li>
-<li>AnimatorListener</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">从Button动画看出问题：</span><br><span class="line">如果对着Button的width设置动画，是不会生效的，其原因是：</span><br><span class="line">1. 设置的属性必须有set方法，如果动画没有传递初始值，则还要get方法，否则报错</span><br><span class="line">2. 设置的属性应该要能看出效果，比如变大变小这种直观能看到的</span><br><span class="line">对于Button而言，它是继承TextView的， TextView继承自View，View自己没有setWidth方法，是TextView自己定义了一个setWidth方法，Button正是继承于此。</span><br><span class="line">然而该setWidth方法并不是用来设置View的大小的，而是设置TextView的最大和最小宽度的。所以这样做是不行的。一般而言有以下方法：</span><br><span class="line">1. 给对象加上get、set方法，但是对于button来说显然不现实，它的具体实现在sdk中</span><br><span class="line">2. 用一个类来包装原始对象，间接为其提供get、set方法</span><br><span class="line">3. 用ValueAnimator，监听动画过程，自己实现属性的改变</span><br></pre></td></tr></table></figure>
+
       
     </div>
 
