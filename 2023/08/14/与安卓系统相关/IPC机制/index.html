@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="多进程可能导致的问题 静态成员和单例模式完全失效 线程同步机制完全失效 SharedPreferences的可靠性下降 Application会多次创建  对于安卓系统而言，对于不同的进程，都会为其分配一个独立的虚拟机，而不同的虚拟机在内存分配上会有不同的地址空间。所以用的内存都不是同一块了，一些共享的问题就会随之出现。 IPC基础概念Serializable接口java提供的序列化接口，是一个空">
+<meta property="og:type" content="article">
+<meta property="og:title" content="天空船的博客">
+<meta property="og:url" content="http://example.com/2023/08/14/%E4%B8%8E%E5%AE%89%E5%8D%93%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3/IPC%E6%9C%BA%E5%88%B6/index.html">
+<meta property="og:site_name" content="天空船的博客">
+<meta property="og:description" content="多进程可能导致的问题 静态成员和单例模式完全失效 线程同步机制完全失效 SharedPreferences的可靠性下降 Application会多次创建  对于安卓系统而言，对于不同的进程，都会为其分配一个独立的虚拟机，而不同的虚拟机在内存分配上会有不同的地址空间。所以用的内存都不是同一块了，一些共享的问题就会随之出现。 IPC基础概念Serializable接口java提供的序列化接口，是一个空">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-14T14:25:40.132Z">
+<meta property="article:modified_time" content="2023-08-07T07:34:10.669Z">
+<meta property="article:author" content="天空船">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2023/08/14/%E4%B8%8E%E5%AE%89%E5%8D%93%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3/IPC%E6%9C%BA%E5%88%B6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/08/14/%E4%B8%8E%E5%AE%89%E5%8D%93%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3/IPC%E6%9C%BA%E5%88%B6/","path":"2023/08/14/与安卓系统相关/IPC机制/","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title> | 天空船的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">天空船的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%8F%AF%E8%83%BD%E5%AF%BC%E8%87%B4%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">多进程可能导致的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IPC%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">IPC基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Serializable%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.1.</span> <span class="nav-text">Serializable接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parcelable"><span class="nav-number">2.2.</span> <span class="nav-text">Parcelable</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IPC%E5%85%B7%E4%BD%93%E6%96%B9%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">IPC具体方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Bundle"><span class="nav-number">3.1.</span> <span class="nav-text">使用Bundle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB"><span class="nav-number">3.2.</span> <span class="nav-text">文件共享</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Messenger"><span class="nav-number">3.3.</span> <span class="nav-text">使用Messenger</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AIDL"><span class="nav-number">3.4.</span> <span class="nav-text">AIDL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ContentProvider"><span class="nav-number">3.5.</span> <span class="nav-text">ContentProvider</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Socket"><span class="nav-number">3.6.</span> <span class="nav-text">Socket</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="天空船"
+      src="/images/1.jpg">
+  <p class="site-author-name" itemprop="name">天空船</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/14/%E4%B8%8E%E5%AE%89%E5%8D%93%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3/IPC%E6%9C%BA%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/1.jpg">
+      <meta itemprop="name" content="天空船">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天空船的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | 天空船的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-08-14 22:25:40" itemprop="dateCreated datePublished" datetime="2023-08-14T22:25:40+08:00">2023-08-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-08-07 15:34:10" itemprop="dateModified" datetime="2023-08-07T15:34:10+08:00">2023-08-07</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="多进程可能导致的问题"><a href="#多进程可能导致的问题" class="headerlink" title="多进程可能导致的问题"></a>多进程可能导致的问题</h1><ol>
+<li>静态成员和单例模式完全失效</li>
+<li>线程同步机制完全失效</li>
+<li>SharedPreferences的可靠性下降</li>
+<li>Application会多次创建</li>
+</ol>
+<p>对于安卓系统而言，对于不同的进程，都会为其分配一个独立的虚拟机，而不同的虚拟机在内存分配上会有不同的地址空间。所以用的内存都不是同一块了，一些共享的问题就会随之出现。</p>
+<h1 id="IPC基础概念"><a href="#IPC基础概念" class="headerlink" title="IPC基础概念"></a>IPC基础概念</h1><h2 id="Serializable接口"><a href="#Serializable接口" class="headerlink" title="Serializable接口"></a>Serializable接口</h2><p>java提供的序列化接口，是一个空接口，为对象提供标准的序列化和反序列化操作。直接继承它，然后在类中指定一个标识值即可。<br>![[Pasted image 20230807112324.png]]</p>
+<p>简单来说，系统在序列化的时候会把这个标识符写到序列化的文件中去，反序列化的时候会拿出来与类的标识符进行对比，如果不对的话，则无法正常反序列化。</p>
+<p>如果不指定该值，并且在反序列化的时候这个类增加或者删除了某些变量，那么系统会重新计算该类的值。如此一来，反序列化就会失败。<br>相反如果指定了话(手动指定，或者让IDE通过类的结构来计算这个值)，上述问题就不会出现了。</p>
+<h2 id="Parcelable"><a href="#Parcelable" class="headerlink" title="Parcelable"></a>Parcelable</h2><p>实现了该接口的数据就可以在Binder中自由的传输了，需要实现三个功能：</p>
+<ol>
+<li>序列化：由writeToParcel完成，最终是通过一系列的write方法来完成的</li>
+<li>反序列化：由CREATOR方法完成，内部要表明如何创建序列化对象和数组，最终是通过一系列的read方法实现的</li>
+<li>内容描述：由describeContents方法完成，几乎所有情况下该方法都应该返回0，仅当当前对象中存在文件描述符的时候返回1。</li>
+</ol>
+<p>![[Pasted image 20230807141414.png]]</p>
+<p>安卓中实现了该接口的类包括：Intent，Bundle，Bitmap等。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">简单来看，java提供的Serializable接口实现简单，但是开销比较大，会使用很多I/O操作。而Parcelable实现相对复杂，但是效率比较高。</span><br><span class="line"></span><br><span class="line">综上来看，大部分情况下首选Parcelable，但是将对象序列化到存储设备上或者将对象序列化后通过网络传播，用Parcelable实现起来有点过于繁琐了，这两种情况下推荐使用Serializable了。</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="IPC具体方式"><a href="#IPC具体方式" class="headerlink" title="IPC具体方式"></a>IPC具体方式</h1><h2 id="使用Bundle"><a href="#使用Bundle" class="headerlink" title="使用Bundle"></a>使用Bundle</h2><p>它实现了Parcelabel接口，所以可以方便地在不同的进程中传输。<br>当然，传输的数据也必须要是能够被序列化的，比如基本数据类型，实现了两个接口中任意一个的对象，和一些安卓支持的特殊对象。</p>
+<h2 id="文件共享"><a href="#文件共享" class="headerlink" title="文件共享"></a>文件共享</h2><p>非常直观的方法，但是需要考虑并发读写的问题。</p>
+<h2 id="使用Messenger"><a href="#使用Messenger" class="headerlink" title="使用Messenger"></a>使用Messenger</h2><p>可以通过它在不同的进程中传递Message对象，其底层实现是AIDL。</p>
+<h2 id="AIDL"><a href="#AIDL" class="headerlink" title="AIDL"></a>AIDL</h2><p>AIDL是上述Messenger的底层。在Messenger中，它是以串行的方式处理客户端发送过来的消息的，如果大量消息发送到服务端，那么再使用Messenger就不合适了。</p>
+<blockquote>
+<p><em>AIDL支持的类型</em></p>
+<ol>
+<li>基本数据类型</li>
+<li>String 和 CharSequence</li>
+<li>ArrayLsit，其中每个元素都要被AIDL支持</li>
+<li>HashMap，其中每个元素都要被AIDL支持，包括key和value</li>
+<li>Parcelable</li>
+<li>AIDL</li>
+</ol>
+</blockquote>
+<h2 id="ContentProvider"><a href="#ContentProvider" class="headerlink" title="ContentProvider"></a>ContentProvider</h2><h2 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h2>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/08/14/%E4%B8%8EWindow%E7%9B%B8%E5%85%B3/%E6%A6%82%E8%BF%B0/" rel="prev" title="">
+                  <i class="fa fa-angle-left"></i> 
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/08/14/%E4%B8%8E%E5%AE%89%E5%8D%93%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/" rel="next" title="">
+                   <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">天空船</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
